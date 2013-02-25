@@ -1,0 +1,18 @@
+Credentials Library
+
+This is a fast portable C library which provides both high-level and
+low-level (cryptographic) credential operations.
+
+
+API Overview:
+ - credential.h provides the high-level credential operations with integrated 
+     card interaction.
+ - credential_terminal.h provides the high-level credential operations without
+     card interaction, this allows the developer to handle the communication.
+(- credential_types.h provides the data types shared by both high-level APIs.)
+
+ - credential_crypto.h provides the low-level cryptographic operations.
+ - credential_card.h provides the low-level APDU processing operations, that is 
+     the generation of commands and translation to and from internal data types.
+
+
