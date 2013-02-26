@@ -86,9 +86,9 @@ typedef struct {
   // Generic values.
   CLPublicKey issuerKey;
   Attributes attr;
+  Selection D;
   
   // Protocol values.
-  Selection D;
   Nonce n_1;
 } VerifierState;
 
@@ -98,6 +98,7 @@ typedef struct {
   CLMessage attributes;
   CLSignature signature;
   CLMessage masterSecret;
+  Selection D;
 } ProverState;
 
 /**
@@ -125,6 +126,34 @@ int prepare_issuer(IssuerState *session, const CredentialIdentifier cred,
  */
 int prepare_recipient(RecipientState *session, const CredentialIdentifier cred,
                       const Attributes *attr);
+
+/**
+ * Prepare the internal VerifierState for a new session based on high-level 
+ * input and an external data structure.
+ *
+ * @param session contains the internal state for the verifier in this session.
+ * @param cred identifier that indicates which credential is to be verified
+ *             (and hence which set of parameters should be used).
+ * @param attr list of attributes requested from this credential.
+ * @return status.
+ */
+int prepare_verifier(VerifierState *session, const CredentialIdentifier cred,
+                     const Attributes *attr);
+
+/**
+ * Prepare the internal ProverState for a new session based on high-level 
+ * input and an external data structure.
+ *
+ * @param session contains the internal state for the prover in this session.
+ * @param cred identifier that indicates which credential is to be verified
+ *             (and hence which set of parameters should be used).
+ * @param attr list of attributes requested from this credential.
+ * @return status.
+ */
+int prepare_prover(ProverState *session, const CredentialIdentifier cred,
+                   const Attributes *attr);
+
+
 
 /**
  * Idemix credential issuance (round 0)
@@ -158,32 +187,6 @@ int issue_construct(RecipientState *session, const CLSignature S,
                     const ProofS P_S, Credential *C);
 
 
-
-/**
- * Prepare the internal VerifierState for a new session based on high-level 
- * input and an external data structure.
- *
- * @param session contains the internal state for the verifier in this session.
- * @param cred identifier that indicates which credential is to be verified
- *             (and hence which set of parameters should be used).
- * @param attr list of attributes requested from this credential.
- * @return status.
- */
-int prepare_verifier(VerifierState *session, const CredentialIdentifier cred,
-                     const Attributes *attr);
-
-/**
- * Prepare the internal ProverState for a new session based on high-level 
- * input and an external data structure.
- *
- * @param session contains the internal state for the prover in this session.
- * @param cred identifier that indicates which credential is to be verified
- *             (and hence which set of parameters should be used).
- * @param attr list of attributes requested from this credential.
- * @return status.
- */
-int prepare_prover(ProverState *session, const CredentialIdentifier cred,
-                   const Attributes *attr);
 
 /**
  * Idemix credential proving (round 0)
