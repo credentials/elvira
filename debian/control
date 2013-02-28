@@ -1,0 +1,27 @@
+Source: credentials
+Section: libs
+Priority: optional
+Maintainer: Pim Vullers <pim@cs.ru.nl>
+Build-Depends: cmake,
+               debhelper (>= 7),
+               libgmp-dev
+Standards-Version: 3.9.1
+Homepage: http://github.com/credentials/clib
+
+Package: credentials
+Architecture: any
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: Credentials Library
+ fast and portable C library which provides both high-level and low-level 
+ (cryptographic) credential operations. 
+
+Package: credentials-dbg
+Architecture: any
+Section: debug
+Priority: extra
+Depends: credentials (= ${binary:Version}), ${misc:Depends}
+Description: Credentials Library
+ fast and portable C library which provides both high-level and low-level 
+ (cryptographic) credential operations. 
+ .
+ This package contains debugging symbols for the credentials library.
