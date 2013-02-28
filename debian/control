@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Pim Vullers <pim@cs.ru.nl>
 Build-Depends: cmake,
                debhelper (>= 7),
-               libgmp3-dev
+               libgmp10-dev
 Standards-Version: 3.9.1
 Homepage: http://github.com/credentials/clib
 
