@@ -5,22 +5,22 @@
  ******************************************************************************/
 
 int prepare_issuer(IssuerState *session, const CredentialIdentifier cred, 
-                   const Attributes *attr) {
+                   const Attributes attr) {
   // TODO: Prepare internal state according to high-level inputs.
 }
 
 int prepare_recipient(RecipientState *session, const CredentialIdentifier cred,
-                      const Attributes *attr) {
+                      const Attributes attr) {
   // TODO: Prepare internal state according to high-level inputs.
 }
 
 int prepare_verifier(VerifierState *session, const CredentialIdentifier cred,
-                     const Attributes *attr) {
+                     const Attributes attr) {
   // TODO: Prepare internal state according to high-level inputs.
 }
 
 int prepare_prover(ProverState *session, const CredentialIdentifier cred,
-                   const Attributes *attr) {
+                   const Attributes attr) {
   // TODO: Prepare internal state according to high-level inputs.
 }
 

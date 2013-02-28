@@ -8,56 +8,7 @@
 #define CREDENTIAL_CRYPTO_H
 
 #include "credential_types.h"
-
-typedef unsigned char Nonce[SIZE_NONCE];
-typedef unsigned char Number[SIZE_N];
-
-typedef struct {
-  Number n;
-  Number Z;
-  Number S;
-  Number *R;
-  unsigned long count;
-} CLPublicKey;
-
-typedef unsigned char CLMessage[SIZE_M];
-typedef struct {
-  CLMessage *value;
-  unsigned long count;
-} CLMessages;
-
-typedef struct {
-  Number A;
-  unsigned char e[SIZE_E];
-  unsigned char v[SIZE_V];
-} CLSignature;
-
-
-typedef struct {
-  CredentialIdentifier id;
-  CLSignature signature;
-  Attributes attributes;
-} Credential;
-
-typedef struct {
-  Hash c;
-  unsigned char vPrimeHat[SIZE_VPRIMEHAT];
-  unsigned char sHat[SIZE_SHAT];
-} ProofU;
-
-typedef struct {
-  Hash c;
-  unsigned char eHat[SIZE_N];
-} ProofS;
-
-typedef struct {
-  Hash c;
-  Number APrime;
-  unsigned char eHat[SIZE_EHAT];
-  unsigned char vHat[SIZE_VHAT];
-  unsigned char *aHat[SIZE_MHAT];
-  CLMessage *a;
-} ProofD;
+#include "credential_crypto_types.h"
 
 typedef struct {
   // Generic values.
@@ -112,7 +63,7 @@ typedef struct {
  * @return status.
  */
 int prepare_issuer(IssuerState *session, const CredentialIdentifier cred, 
-                   const Attributes *attr);
+                   const Attributes attr);
 
 /**
  * Prepare the internal RecipientState for a new session based on high-level 
@@ -125,7 +76,7 @@ int prepare_issuer(IssuerState *session, const CredentialIdentifier cred,
  * @return status.
  */
 int prepare_recipient(RecipientState *session, const CredentialIdentifier cred,
-                      const Attributes *attr);
+                      const Attributes attr);
 
 /**
  * Prepare the internal VerifierState for a new session based on high-level 
@@ -138,7 +89,7 @@ int prepare_recipient(RecipientState *session, const CredentialIdentifier cred,
  * @return status.
  */
 int prepare_verifier(VerifierState *session, const CredentialIdentifier cred,
-                     const Attributes *attr);
+                     const Attributes attr);
 
 /**
  * Prepare the internal ProverState for a new session based on high-level 
@@ -151,7 +102,7 @@ int prepare_verifier(VerifierState *session, const CredentialIdentifier cred,
  * @return status.
  */
 int prepare_prover(ProverState *session, const CredentialIdentifier cred,
-                   const Attributes *attr);
+                   const Attributes attr);
 
 
 
@@ -193,15 +144,14 @@ int issue_construct(RecipientState *session, const CLSignature S,
  *
  * The verifier executes this command to generate a fresh nonce.
  */
-int verify_challenge(VerifierState *session, Selection *D, Nonce *n_1);
+int verify_challenge(VerifierState *session, Nonce *n_1);
 
 /**
  * Idemix credential verification (round 1)
  *
  * The prover executes this command to generate a proof-of-knowledge.
  */
-int generate_proof(ProverState *session, const Selection D, const Nonce n_1, 
-                   ProofD *P_D);
+int generate_proof(ProverState *session, const Nonce n_1, ProofD *P_D);
 
 /**
  * Idemix credential verification (round 2)

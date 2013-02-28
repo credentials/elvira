@@ -1,3 +1,4 @@
+#include "credential_card.h"
 // TODO(PV): Implement APDU processing.
 
 /******************************************************************************
@@ -36,7 +37,7 @@ int issue_commit_commands(const Nonce n_1, CommandAPDUs *command) {
 }
 
 int issue_commit_responses(const ResponseAPDUs response, Number *U, 
-                           ProofU *P_U, Nonce *n_2);
+                           ProofU *P_U, Nonce *n_2) {
   // TODO: Process the ISSUE_COMMITMENT, COMMITMENT_PROOF and CHALLENGE 
   //       responses (see specification).
 }

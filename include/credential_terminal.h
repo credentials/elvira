@@ -8,6 +8,7 @@
 #define CREDENTIAL_TERMINAL_H
 
 #include "credential_types.h"
+#include "smartcard_types.h"
 
 // Return values for this library
 #define SUCCESS 0
@@ -16,50 +17,6 @@
 #define INVALID -3
 #define MISSING -4
 
-// Command APDU (according to ISO7816) with an additional identifier.
-typedef struct {
-  const char *id;
-  unsigned long idLength;
-  unsigned char cla;
-  unsigned char ins;
-  unsigned char p1;
-  unsigned char p2;
-  unsigned char *data;
-  unsigned long dataLength
-} CommandAPDU;
-
-/**
- * List of command APDUs.
- *
- * @param apdu list of command APDUs.
- * @param count number of commands in the list.
- */
-typedef struct {
-  CommandAPDU *apdu;
-  unsigned long count;
-} CommandAPDUs;
-
-// Response APDU (according to ISO7816) with an additional identifier to link to
-// the executed command.
-typedef struct {
-  const char *id;
-  unsigned long idLength;
-  unsigned char *data;
-  unsigned long dataLength;
-  unsigned short sw;
-} ResponseAPDU;
-
-/**
- * List of response APDUs.
- *
- * @param apdu list of response APDUs.
- * @param count number of responses in the list.
- */
-typedef struct {
-  ResponseAPDU *apdu;
-  unsigned long count;
-} ResponseAPDUs;
-
 // Internal state object that stores information needed for future processing.
 typedef struct {
   unsigned char *nonce;
@@ -67,8 +24,8 @@ typedef struct {
 } State;
 
 // For now the state objects contain the same data.
-typedef IssuanceState State;
-typedef VerificationState State;
+typedef State IssuanceState;
+typedef State VerificationState;
 
 /**
  * Issue a new credential (step 1, initialisation)
@@ -82,7 +39,7 @@ typedef VerificationState State;
  *         FAILURE if the credential issuance has failed.
  */
 int credential_issue_init(const CredentialIdentifier cred, 
-                          const Attributes *attr,
+                          const Attributes attr,
                           CommandAPDUs *command, 
                           IssuanceState *state);
                      
@@ -101,8 +58,8 @@ int credential_issue_init(const CredentialIdentifier cred,
  *         PRESENT if the credential was already present.
  */
 int credential_issue_sign(const CredentialIdentifier cred, 
-                          const Attributes *attr, 
-                          const ResponseAPDUs *response, CommandAPDUs *command, 
+                          const Attributes attr, 
+                          const ResponseAPDUs response, CommandAPDUs *command, 
                           IssuanceState *state);
 
 /**
@@ -117,8 +74,8 @@ int credential_issue_sign(const CredentialIdentifier cred,
  *         FAILURE if the credential issuance has failed.
  */
 int credential_issue_check(const CredentialIdentifier cred, 
-                           const Attributes *attr, 
-                           const ResponseAPDUs *response,
+                           const Attributes attr, 
+                           const ResponseAPDUs response,
                            IssuanceState *state);
 
 /**
@@ -153,7 +110,7 @@ int credential_verify_init(const CredentialIdentifier cred, Attributes *attr,
  *         MISSING if the credential was not available.
  */
 int credential_verify_check(const CredentialIdentifier cred, Attributes *attr,
-                            const ResponseAPDUs *response, 
+                            const ResponseAPDUs response, 
                             VerificationState *state);
 
 #endif // CREDENTIAL_TERMINAL_H

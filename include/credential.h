@@ -26,7 +26,7 @@
  *         FAILURE if the credential issuance has failed, or
  *         PRESENT if the credential was already present.
  */
-int credential_issue(const CredentialIdentifier cred, const Attributes *attr);
+int credential_issue(const CredentialIdentifier cred, const Attributes attr);
 
 /**
  * Verify attributes from a credential.

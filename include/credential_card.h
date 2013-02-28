@@ -7,6 +7,10 @@
 #ifndef CREDENTIAL_CARD_H
 #define CREDENTIAL_CARD_H
 
+#include "credential_types.h"
+#include "credential_crypto_types.h"
+#include "smartcard_types.h"
+
 /**
  * Prepare the card for a new session based on high-level input and an external
  * data structure.

@@ -4,6 +4,9 @@
 
 int credential_issue(const CredentialIdentifier cred, const Attributes attr) {
   int status;
+  CommandAPDUs command;
+  ResponseAPDUs response;
+  IssuanceState state;
   
   // TODO: Verify input values and retrieve credential information.
   
@@ -42,6 +45,9 @@ int credential_issue(const CredentialIdentifier cred, const Attributes attr) {
 
 int credential_verify(const CredentialIdentifier cred, Attributes *attr) {
   int status;
+  CommandAPDUs command;
+  ResponseAPDUs response;
+  VerificationState state;
   
   // TODO: Verify input values and retrieve credential information.
   
@@ -57,7 +63,7 @@ int credential_verify(const CredentialIdentifier cred, Attributes *attr) {
     return FAILURE;
   }
   
-  status = credential_verify_check(cred, &attr, response, &state);
+  status = credential_verify_check(cred, attr, response, &state);
   if (!status) {
     // TODO: Error handling and cleanup.
     return status;
