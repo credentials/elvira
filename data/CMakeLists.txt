@@ -12,5 +12,5 @@ configure_file(
 install(FILES
           ${CMAKE_CURRENT_BINARY_DIR}/${PKG_NAME}.pc 
           ${CMAKE_CURRENT_BINARY_DIR}/${PKG_NAME}_crypto.pc 
-        DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/pkgconfig/
+        DESTINATION lib/pkgconfig/
 )

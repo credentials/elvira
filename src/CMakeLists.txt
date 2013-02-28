@@ -52,9 +52,9 @@ IF(CMAKE_COMPILER_IS_GNUCXX)
 ENDIF(CMAKE_COMPILER_IS_GNUCXX)
 
 # generate and install the library
-set(INSTALL_LIB_DIR ${CMAKE_INSTALL_PREFIX}/lib CACHE PATH "Installation directory for libraries")
-set(INSTALL_BIN_DIR ${CMAKE_INSTALL_PREFIX}/bin CACHE PATH "Installation directory for executables")
-set(INSTALL_INCLUDE_DIR ${CMAKE_INSTALL_PREFIX}/include CACHE PATH "Installation directory for header files")
+set(INSTALL_LIB_DIR lib CACHE PATH "Installation directory for libraries")
+set(INSTALL_BIN_DIR bin CACHE PATH "Installation directory for executables")
+set(INSTALL_INCLUDE_DIR include CACHE PATH "Installation directory for header files")
 #configure_file(
 #        ${CMAKE_SOURCE_DIR}/include/${PKG_NAME}.h.cmake 
 #        ${CMAKE_BINARY_DIR}/include/${PKG_NAME}.h
@@ -76,6 +76,6 @@ set_target_properties(${PKG_NAME}_crypto PROPERTIES
 )
 install(
   TARGETS ${PKG_NAME} ${PKG_NAME}_crypto
-  LIBRARY DESTINATION "${INSTALL_LIB_DIR}" COMPONENT shlib
-  PUBLIC_HEADER DESTINATION "${INSTALL_INCLUDE_DIR}/${PKG_NAME}" COMPONENT dev
+  LIBRARY DESTINATION ${INSTALL_LIB_DIR} COMPONENT shlib
+  PUBLIC_HEADER DESTINATION ${INSTALL_INCLUDE_DIR}/${PKG_NAME} COMPONENT dev
 )
