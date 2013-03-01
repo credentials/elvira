@@ -36,7 +36,7 @@ typedef struct {
 
 /**
  * List of attributes.
- * 
+ *
  * @param attribute list of attributes.
  * @param count number of attributes in the list.
  */

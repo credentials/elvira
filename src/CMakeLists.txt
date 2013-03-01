@@ -25,11 +25,11 @@ set(PKG_DEPS gmp ${PKG_DEPS})
 #set(DOLLAR "$")
 #set(PREFIX ${CMAKE_INSTALL_PREFIX})
 #configure_file(
-#        ${CMAKE_SOURCE_DIR}/data/${PKG_NAME}.pc.cmake 
+#        ${CMAKE_SOURCE_DIR}/data/${PKG_NAME}.pc.cmake
 #        ${CMAKE_BINARY_DIR}/data/${PKG_NAME}.pc
 #)
 #install(
-#        FILES ${CMAKE_BINARY_DIR}/data/${PKG_NAME}.pc 
+#        FILES ${CMAKE_BINARY_DIR}/data/${PKG_NAME}.pc
 #        DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/pkgconfig/
 #)
 
@@ -56,7 +56,7 @@ set(INSTALL_LIB_DIR lib CACHE PATH "Installation directory for libraries")
 set(INSTALL_BIN_DIR bin CACHE PATH "Installation directory for executables")
 set(INSTALL_INCLUDE_DIR include CACHE PATH "Installation directory for header files")
 #configure_file(
-#        ${CMAKE_SOURCE_DIR}/include/${PKG_NAME}.h.cmake 
+#        ${CMAKE_SOURCE_DIR}/include/${PKG_NAME}.h.cmake
 #        ${CMAKE_BINARY_DIR}/include/${PKG_NAME}.h
 #)
 add_library(${PKG_NAME} SHARED ${SOURCES})

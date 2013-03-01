@@ -5,25 +5,25 @@
  * PREPARATION                                                                *
  ******************************************************************************/
 
-int prepare_recipient_commands(const CredentialIdentifier cred, 
+int prepare_recipient_commands(const CredentialIdentifier cred,
                                const Attributes attr, CommandAPDUs *command) {
-  // TODO: Generate the issuance protocol initialisation commands (see 
+  // TODO: Generate the issuance protocol initialisation commands (see
   //       specification).
 }
 
 int prepare_recipient_responses(const ResponseAPDUs response) {
-  // TODO: Process the issuance protocol initialisation responses (see 
+  // TODO: Process the issuance protocol initialisation responses (see
   //       specification).
 }
 
-int prepare_prover_commands(const CredentialIdentifier cred, 
+int prepare_prover_commands(const CredentialIdentifier cred,
                             const Attributes attr, CommandAPDUs *command) {
-  // TODO: Generate the verification protocol initialisation commands (see 
+  // TODO: Generate the verification protocol initialisation commands (see
   //       specification).
 }
 
 int prepare_prover_responses(const ResponseAPDUs response) {
-  // TODO: Process the verification protocol initialisation responses (see 
+  // TODO: Process the verification protocol initialisation responses (see
   //       specification).
 }
 
@@ -32,17 +32,17 @@ int prepare_prover_responses(const ResponseAPDUs response) {
  ******************************************************************************/
 
 int issue_commit_commands(const Nonce n_1, CommandAPDUs *command) {
-  // TODO: Generate the ISSUE_COMMITMENT, COMMITMENT_PROOF and CHALLENGE 
+  // TODO: Generate the ISSUE_COMMITMENT, COMMITMENT_PROOF and CHALLENGE
   //       commands (see specification).
 }
 
-int issue_commit_responses(const ResponseAPDUs response, Number *U, 
+int issue_commit_responses(const ResponseAPDUs response, Number *U,
                            ProofU *P_U, Nonce *n_2) {
-  // TODO: Process the ISSUE_COMMITMENT, COMMITMENT_PROOF and CHALLENGE 
+  // TODO: Process the ISSUE_COMMITMENT, COMMITMENT_PROOF and CHALLENGE
   //       responses (see specification).
 }
 
-int issue_construct_commands(const CLSignature S, const ProofS P_S, 
+int issue_construct_commands(const CLSignature S, const ProofS P_S,
                              CommandAPDUs *command) {
   // TODO: Generate the ISSUE_SIGNATURE and SIGNATURE_PROOF commands (see
   //       specification).

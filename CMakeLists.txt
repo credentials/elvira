@@ -40,3 +40,4 @@ add_custom_target(rpm COMMAND ${CMAKE_CPACK_COMMAND} -G RPM)
 
 add_subdirectory(data)
 add_subdirectory(src)
+add_subdirectory(test)

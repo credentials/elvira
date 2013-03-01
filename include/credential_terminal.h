@@ -30,7 +30,7 @@ typedef State VerificationState;
 /**
  * Issue a new credential (step 1, initialisation)
  *
- * @param cred identifier that indicates which credential is to be issued 
+ * @param cred identifier that indicates which credential is to be issued
  *             (and hence which set of parameters should be used).
  * @param attr list of attributes to be included in this credential.
  * @param command list of APDUs to be send to the card.
@@ -38,34 +38,34 @@ typedef State VerificationState;
  * @return SUCCESS if the command generation was successful, or
  *         FAILURE if the credential issuance has failed.
  */
-int credential_issue_init(const CredentialIdentifier cred, 
+int credential_issue_init(const CredentialIdentifier cred,
                           const Attributes attr,
-                          CommandAPDUs *command, 
+                          CommandAPDUs *command,
                           IssuanceState *state);
-                     
+
 /**
  * Issue a new credential (step 2, sign the commitment).
  *
- * @param cred identifier that indicates which credential is to be issued 
+ * @param cred identifier that indicates which credential is to be issued
  *             (and hence which set of parameters should be used).
  * @param attr list of attributes to be included in this credential.
  * @param response list of APDUs received from the card.
  * @param command list of APDUs to be send to the card.
- * @param state information that has been, or needs to be, stored for future 
+ * @param state information that has been, or needs to be, stored for future
  *              processing.
  * @return SUCCESS if the command generation was successful, or
  *         FAILURE if the credential issuance has failed, or
  *         PRESENT if the credential was already present.
  */
-int credential_issue_sign(const CredentialIdentifier cred, 
-                          const Attributes attr, 
-                          const ResponseAPDUs response, CommandAPDUs *command, 
+int credential_issue_sign(const CredentialIdentifier cred,
+                          const Attributes attr,
+                          const ResponseAPDUs response, CommandAPDUs *command,
                           IssuanceState *state);
 
 /**
  * Issue a new credential (step 3, check the responses).
  *
- * @param cred identifier that indicates which credential is to be issued 
+ * @param cred identifier that indicates which credential is to be issued
  *             (and hence which set of parameters should be used).
  * @param attr list of attributes to be included in this credential.
  * @param response list of APDUs received from the card.
@@ -73,8 +73,8 @@ int credential_issue_sign(const CredentialIdentifier cred,
  * @return SUCCESS if the credential issuance was successful, or
  *         FAILURE if the credential issuance has failed.
  */
-int credential_issue_check(const CredentialIdentifier cred, 
-                           const Attributes attr, 
+int credential_issue_check(const CredentialIdentifier cred,
+                           const Attributes attr,
                            const ResponseAPDUs response,
                            IssuanceState *state);
 
@@ -91,7 +91,7 @@ int credential_issue_check(const CredentialIdentifier cred,
  *         FAILURE if the credential verification has failed.
  */
 int credential_verify_init(const CredentialIdentifier cred, Attributes *attr,
-                           CommandAPDUs *command, 
+                           CommandAPDUs *command,
                            VerificationState *state);
 
 /**
@@ -110,7 +110,7 @@ int credential_verify_init(const CredentialIdentifier cred, Attributes *attr,
  *         MISSING if the credential was not available.
  */
 int credential_verify_check(const CredentialIdentifier cred, Attributes *attr,
-                            const ResponseAPDUs response, 
+                            const ResponseAPDUs response,
                             VerificationState *state);
 
 #endif // CREDENTIAL_TERMINAL_H
