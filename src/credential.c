@@ -22,7 +22,7 @@ int credential_issue(const CredentialIdentifier *cred, const Attributes *attr) {
   // TODO: Verify input values and retrieve credential information.
 
   status = credential_issue_init(cred, attr, &command, state);
-  if (status) {
+  if (status != SUCCESS) {
     // TODO: Error handling and cleanup.
     return status;
   }
@@ -63,19 +63,19 @@ int credential_verify(const CredentialIdentifier *cred, Attributes *attr) {
   // TODO: Verify input values and retrieve credential information.
 
   status = credential_verify_init(cred, attr, &command, state);
-  if (!status) {
+  if (status != SUCCESS) {
     // TODO: Error handling and cleanup.
     return status;
   }
 
   status = transmitAPDUs(command, &response);
-  if (!status) {
+  if (status != SUCCESS) {
     // TODO: Error handling and cleanup.
     return FAILURE;
   }
 
   status = credential_verify_check(cred, response, attr, state);
-  if (!status) {
+  if (status != SUCCESS) {
     // TODO: Error handling and cleanup.
     return status;
   }
