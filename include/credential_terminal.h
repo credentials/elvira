@@ -31,8 +31,8 @@ struct VerificationState;
  * @return SUCCESS if the command generation was successful, or
  *         FAILURE if the credential issuance has failed.
  */
-int credential_issue_init(const CredentialIdentifier cred, 
-                          const Attributes attr,
+int credential_issue_init(const CredentialIdentifier *cred, 
+                          const Attributes *attr,
                           CommandAPDUs *command, 
                           struct IssuanceState *state);
                      
@@ -50,8 +50,8 @@ int credential_issue_init(const CredentialIdentifier cred,
  *         FAILURE if the credential issuance has failed, or
  *         PRESENT if the credential was already present.
  */
-int credential_issue_sign(const CredentialIdentifier cred, 
-                          const Attributes attr, 
+int credential_issue_sign(const CredentialIdentifier *cred, 
+                          const Attributes *attr, 
                           const ResponseAPDUs response, CommandAPDUs *command, 
                           struct IssuanceState *state);
 
@@ -66,8 +66,8 @@ int credential_issue_sign(const CredentialIdentifier cred,
  * @return SUCCESS if the credential issuance was successful, or
  *         FAILURE if the credential issuance has failed.
  */
-int credential_issue_check(const CredentialIdentifier cred, 
-                           const Attributes attr, 
+int credential_issue_check(const CredentialIdentifier *cred, 
+                           const Attributes *attr, 
                            const ResponseAPDUs response,
                            struct IssuanceState *state);
 
@@ -83,7 +83,7 @@ int credential_issue_check(const CredentialIdentifier cred,
  * @return SUCCESS if the command generation was successful, or
  *         FAILURE if the credential verification has failed.
  */
-int credential_verify_init(const CredentialIdentifier cred, Attributes *attr,
+int credential_verify_init(const CredentialIdentifier *cred, const Attributes *attr,
                            CommandAPDUs *command, 
                            struct VerificationState *state);
 
@@ -102,8 +102,9 @@ int credential_verify_init(const CredentialIdentifier cred, Attributes *attr,
  *         INVALID if the credential was not valid, or
  *         MISSING if the credential was not available.
  */
-int credential_verify_check(const CredentialIdentifier cred, Attributes *attr,
+int credential_verify_check(const CredentialIdentifier *cred, 
                             const ResponseAPDUs response, 
+                            Attributes *attr,
                             struct VerificationState *state);
 
 #endif // CREDENTIAL_TERMINAL_H

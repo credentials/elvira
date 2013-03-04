@@ -25,8 +25,8 @@ struct ProverState;
  * @param attr list of attributes to be included in this credential.
  * @return status.
  */
-int prepare_issuer(struct IssuerState *session, const CredentialIdentifier cred,
-                   const Attributes attr);
+int prepare_issuer(struct IssuerState *session, const CredentialIdentifier *cred,
+                   const Attributes *attr);
 
 /**
  * Prepare the internal RecipientState for a new session based on high-level
@@ -38,8 +38,8 @@ int prepare_issuer(struct IssuerState *session, const CredentialIdentifier cred,
  * @param attr list of attributes to be included in this credential.
  * @return status.
  */
-int prepare_recipient(struct RecipientState *session, const CredentialIdentifier cred,
-                      const Attributes attr);
+int prepare_recipient(struct RecipientState *session, const CredentialIdentifier *cred,
+                      const Attributes *attr);
 
 /**
  * Prepare the internal VerifierState for a new session based on high-level
@@ -51,8 +51,8 @@ int prepare_recipient(struct RecipientState *session, const CredentialIdentifier
  * @param attr list of attributes requested from this credential.
  * @return status.
  */
-int prepare_verifier(struct VerifierState *session, const CredentialIdentifier cred,
-                     const Attributes attr);
+int prepare_verifier(struct VerifierState *session, const CredentialIdentifier *cred,
+                     const Attributes *attr);
 
 /**
  * Prepare the internal ProverState for a new session based on high-level
@@ -64,8 +64,8 @@ int prepare_verifier(struct VerifierState *session, const CredentialIdentifier c
  * @param attr list of attributes requested from this credential.
  * @return status.
  */
-int prepare_prover(struct ProverState *session, const CredentialIdentifier cred,
-                   const Attributes attr);
+int prepare_prover(struct ProverState *session, const CredentialIdentifier *cred,
+                   const Attributes *attr);
 
 
 

@@ -46,23 +46,28 @@ typedef struct {
  * PREPARATION                                                                *
  ******************************************************************************/
 
-int prepare_issuer(struct IssuerState *session, const CredentialIdentifier cred,
-                   const Attributes attr) {
+int prepare_issuer( const CredentialIdentifier *cred,
+    const Attributes *attr, 
+    struct IssuerState *session)
+{
   // TODO: Prepare internal state according to high-level inputs.
 }
 
-int prepare_recipient(struct RecipientState *session, const CredentialIdentifier cred,
-                      const Attributes attr) {
+int prepare_recipient( const CredentialIdentifier *cred,
+    const Attributes *attr,
+    struct RecipientState *session){
   // TODO: Prepare internal state according to high-level inputs.
 }
 
-int prepare_verifier(struct VerifierState *session, const CredentialIdentifier cred,
-                     const Attributes attr) {
+int prepare_verifier( const CredentialIdentifier *cred,
+    const Attributes *attr,
+    struct VerifierState *session){
   // TODO: Prepare internal state according to high-level inputs.
 }
 
-int prepare_prover(struct ProverState *session, const CredentialIdentifier cred,
-                   const Attributes attr) {
+int prepare_prover( const CredentialIdentifier *cred,
+    const Attributes *attr,
+    struct ProverState *session){
   // TODO: Prepare internal state according to high-level inputs.
 }
 
@@ -72,12 +77,15 @@ int prepare_prover(struct ProverState *session, const CredentialIdentifier cred,
 
 int issue_challenge(struct IssuerState *session, Nonce *n_1) {
   // TODO: Generate a fresh nonce: n_1.
+  // Use random nonces.
+  // Nonce goes to *n_1 and to session->n_1
 }
 
 int issue_commit(struct RecipientState *session, const Nonce n_1, Number *U,
                  ProofU *P_U, Nonce *n_2) {
   // TODO: Implement according to specification: COMMIT().
   // TODO: Generate a fresh nonce: n_2.
+  // Nonce goes to session->n_2 and to *n_2
 }
 
 int issue_sign(struct IssuerState *session, const Number U, const ProofU P_U,

@@ -2,7 +2,18 @@
 
 #include "credential_terminal.h"
 
-int credential_issue(const CredentialIdentifier cred, const Attributes attr) {
+/**
+ * Transmit command APDUs to a card and store the responses for processing.
+ *
+ * @param command list of APDUs to be send to the card.
+ * @param response list of APDUs received from the card.
+ * @return status.
+ */
+static int transmitAPDUS(const CommandAPDUs *command, ResponseAPDUs *response) {
+  // TODO: implement PC/SC transmit command.
+}
+
+int credential_issue(const CredentialIdentifier *cred, const Attributes *attr) {
   int status;
   CommandAPDUs command;
   ResponseAPDUs response;
@@ -11,31 +22,31 @@ int credential_issue(const CredentialIdentifier cred, const Attributes attr) {
   // TODO: Verify input values and retrieve credential information.
   
   status = credential_issue_init(cred, attr, &command, state);
-  if (!status) {
+  if (status) {
     // TODO: Error handling and cleanup.
     return status;
   }
 
   status = transmitAPDUs(command, &response);
-  if (!status) {
+  if (status != SUCCESS) {
     // TODO: Error handling and cleanup.
     return FAILURE;
   }
   
   status = credential_issue_sign(cred, attr, response, &command, state);
-  if (!status) {
+  if (status != SUCCESS) {
     // TODO: Error handling and cleanup.
     return status;
   }
 
   status = transmitAPDUs(command, &response);
-  if (!status) {
+  if (status != SUCCESS) {
     // TODO: Error handling and cleanup.
     return FAILURE;
   }
   
   status = credential_issue_check(cred, attr, response, state);
-  if (!status) {
+  if (status != SUCCESS) {
     // TODO: Error handling and cleanup.
     return status;
   }
@@ -43,7 +54,7 @@ int credential_issue(const CredentialIdentifier cred, const Attributes attr) {
   return SUCCESS;
 }
 
-int credential_verify(const CredentialIdentifier cred, Attributes *attr) {
+int credential_verify(const CredentialIdentifier *cred, Attributes *attr) {
   int status;
   CommandAPDUs command;
   ResponseAPDUs response;
@@ -63,7 +74,7 @@ int credential_verify(const CredentialIdentifier cred, Attributes *attr) {
     return FAILURE;
   }
   
-  status = credential_verify_check(cred, attr, response, state);
+  status = credential_verify_check(cred, response, attr, state);
   if (!status) {
     // TODO: Error handling and cleanup.
     return status;
@@ -72,13 +83,3 @@ int credential_verify(const CredentialIdentifier cred, Attributes *attr) {
   return SUCCESS;
 }
 
-/**
- * Transmit command APDUs to a card and store the responses for processing.
- *
- * @param command list of APDUs to be send to the card.
- * @param response list of APDUs received from the card.
- * @return status.
- */
-int transmitAPDUS(const CommandAPDUs *command, ResponseAPDUs *response) {
-  // TODO: implement PC/SC transmit command.
-}

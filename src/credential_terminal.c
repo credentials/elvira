@@ -17,8 +17,8 @@ typedef State VerificationState;
  * ISSUANCE                                                                   *
  ******************************************************************************/
 
-int credential_issue_init(const CredentialIdentifier cred, 
-                          const Attributes attr,
+int credential_issue_init(const CredentialIdentifier *cred, 
+                          const Attributes *attr,
                           CommandAPDUs *command, 
                           struct IssuanceState *state) {
   int status;
@@ -58,8 +58,8 @@ int credential_issue_init(const CredentialIdentifier cred,
   return SUCCESS;
 }
 
-int credential_issue_sign(const CredentialIdentifier cred, 
-                          const Attributes attr, 
+int credential_issue_sign(const CredentialIdentifier *cred, 
+                          const Attributes *attr, 
                           const ResponseAPDUs response, CommandAPDUs *command, 
                           struct IssuanceState *state) {
   int status;
@@ -105,8 +105,8 @@ int credential_issue_sign(const CredentialIdentifier cred,
   return SUCCESS;
 }
 
-int credential_issue_check(const CredentialIdentifier cred, 
-                           const Attributes attr, 
+int credential_issue_check(const CredentialIdentifier *cred, 
+                           const Attributes *attr, 
                            const ResponseAPDUs response,
                            struct IssuanceState *state) {
   int status;
@@ -127,7 +127,7 @@ int credential_issue_check(const CredentialIdentifier cred,
  * VERIFICATION                                                               *
  ******************************************************************************/
 
-int credential_verify_init(const CredentialIdentifier cred, Attributes *attr,
+int credential_verify_init(const CredentialIdentifier *cred, const Attributes *attr,
                            CommandAPDUs *command, 
                            struct VerificationState *state) {
   int status;
@@ -135,7 +135,7 @@ int credential_verify_init(const CredentialIdentifier cred, Attributes *attr,
   Nonce n_1;
   
   // Prepare the verifier.
-  status = prepare_verifier(session, cred, *attr);
+  status = prepare_verifier(session, cred, attr);
   if (status != SUCCESS) {
     // TODO: Error handling.
     return status;
@@ -167,8 +167,9 @@ int credential_verify_init(const CredentialIdentifier cred, Attributes *attr,
   return SUCCESS;
 }
 
-int credential_verify_check(const CredentialIdentifier cred, Attributes *attr,
+int credential_verify_check(const CredentialIdentifier *cred, 
                             const ResponseAPDUs response, 
+                            Attributes *attr,
                             struct VerificationState *state) {
 
   int status;

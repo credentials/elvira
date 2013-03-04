@@ -26,7 +26,7 @@
  *         FAILURE if the credential issuance has failed, or
  *         PRESENT if the credential was already present.
  */
-int credential_issue(const CredentialIdentifier cred, const Attributes attr);
+int credential_issue(const CredentialIdentifier *cred, const Attributes *attr);
 
 /**
  * Verify attributes from a credential.
@@ -40,6 +40,6 @@ int credential_issue(const CredentialIdentifier cred, const Attributes attr);
  *         INVALID if the credential was not valid, or
  *         MISSING if the credential was not available.
  */
-int credential_verify(const CredentialIdentifier cred, Attributes *attr);
+int credential_verify(const CredentialIdentifier *cred, Attributes *attr);
 
 #endif // CREDENTIAL_H
