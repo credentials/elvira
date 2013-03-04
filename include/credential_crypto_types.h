@@ -24,7 +24,7 @@
 
 typedef unsigned char Hash[SIZE_HASH];
 typedef unsigned char Nonce[SIZE_NONCE];
-typedef unsigned char Number[SIZE_N];
+typedef unsigned char Number[SIZE_N]; // big endian!
 
 typedef struct {
   Number p;
