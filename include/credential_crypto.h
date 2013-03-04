@@ -10,6 +10,13 @@
 #include "credential_types.h"
 #include "credential_crypto_types.h"
 
+// Return values for this library
+#define SUCCESS 0
+#define FAILURE -1
+#define PRESENT -2
+#define INVALID -3
+#define MISSING -4
+
 struct IssuerState;
 struct RecipientState;
 struct VerifierState;
@@ -25,8 +32,8 @@ struct ProverState;
  * @param attr list of attributes to be included in this credential.
  * @return status.
  */
-int prepare_issuer(struct IssuerState *session, const CredentialIdentifier *cred,
-                   const Attributes *attr);
+int prepare_issuer(const CredentialIdentifier *cred, const Attributes *attr,
+                   struct IssuerState *session);
 
 /**
  * Prepare the internal RecipientState for a new session based on high-level
@@ -38,8 +45,8 @@ int prepare_issuer(struct IssuerState *session, const CredentialIdentifier *cred
  * @param attr list of attributes to be included in this credential.
  * @return status.
  */
-int prepare_recipient(struct RecipientState *session, const CredentialIdentifier *cred,
-                      const Attributes *attr);
+int prepare_recipient(const CredentialIdentifier *cred, const Attributes *attr,
+                      struct RecipientState *session);
 
 /**
  * Prepare the internal VerifierState for a new session based on high-level
@@ -51,8 +58,8 @@ int prepare_recipient(struct RecipientState *session, const CredentialIdentifier
  * @param attr list of attributes requested from this credential.
  * @return status.
  */
-int prepare_verifier(struct VerifierState *session, const CredentialIdentifier *cred,
-                     const Attributes *attr);
+int prepare_verifier(const CredentialIdentifier *cred, const Attributes *attr,
+                     struct VerifierState *session);
 
 /**
  * Prepare the internal ProverState for a new session based on high-level
@@ -64,8 +71,8 @@ int prepare_verifier(struct VerifierState *session, const CredentialIdentifier *
  * @param attr list of attributes requested from this credential.
  * @return status.
  */
-int prepare_prover(struct ProverState *session, const CredentialIdentifier *cred,
-                   const Attributes *attr);
+int prepare_prover(const Credential *cred, const Attributes *attr,
+                   struct ProverState *session);
 
 
 

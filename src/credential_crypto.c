@@ -46,26 +46,26 @@ typedef struct {
  * PREPARATION                                                                *
  ******************************************************************************/
 
-int prepare_issuer( const CredentialIdentifier *cred,
+int prepare_issuer(const CredentialIdentifier *cred,
     const Attributes *attr,
     struct IssuerState *session)
 {
   // TODO: Prepare internal state according to high-level inputs.
 }
 
-int prepare_recipient( const CredentialIdentifier *cred,
+int prepare_recipient(const CredentialIdentifier *cred,
     const Attributes *attr,
     struct RecipientState *session){
   // TODO: Prepare internal state according to high-level inputs.
 }
 
-int prepare_verifier( const CredentialIdentifier *cred,
+int prepare_verifier(const CredentialIdentifier *cred,
     const Attributes *attr,
     struct VerifierState *session){
   // TODO: Prepare internal state according to high-level inputs.
 }
 
-int prepare_prover( const CredentialIdentifier *cred,
+int prepare_prover(const Credential *cred,
     const Attributes *attr,
     struct ProverState *session){
   // TODO: Prepare internal state according to high-level inputs.

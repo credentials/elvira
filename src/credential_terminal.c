@@ -26,7 +26,7 @@ int credential_issue_init(const CredentialIdentifier *cred,
   Nonce n_1;
 
   // Prepare the issuer.
-  status = prepare_issuer(session, cred, attr);
+  status = prepare_issuer(cred, attr, session);
   if (status != SUCCESS) {
     // TODO: Error handling.
     return status;
@@ -135,7 +135,7 @@ int credential_verify_init(const CredentialIdentifier *cred, const Attributes *a
   Nonce n_1;
 
   // Prepare the verifier.
-  status = prepare_verifier(session, cred, attr);
+  status = prepare_verifier(cred, attr, session);
   if (status != SUCCESS) {
     // TODO: Error handling.
     return status;
