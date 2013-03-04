@@ -17,15 +17,8 @@
 #define INVALID -3
 #define MISSING -4
 
-// Internal state object that stores information needed for future processing.
-typedef struct {
-  unsigned char *nonce;
-  unsigned long length;
-} State;
-
-// For now the state objects contain the same data.
-typedef State IssuanceState;
-typedef State VerificationState;
+struct IssuanceState;
+struct VerificationState;
 
 /**
  * Issue a new credential (step 1, initialisation)
@@ -41,7 +34,7 @@ typedef State VerificationState;
 int credential_issue_init(const CredentialIdentifier cred, 
                           const Attributes attr,
                           CommandAPDUs *command, 
-                          IssuanceState *state);
+                          struct IssuanceState *state);
                      
 /**
  * Issue a new credential (step 2, sign the commitment).
@@ -60,7 +53,7 @@ int credential_issue_init(const CredentialIdentifier cred,
 int credential_issue_sign(const CredentialIdentifier cred, 
                           const Attributes attr, 
                           const ResponseAPDUs response, CommandAPDUs *command, 
-                          IssuanceState *state);
+                          struct IssuanceState *state);
 
 /**
  * Issue a new credential (step 3, check the responses).
@@ -76,7 +69,7 @@ int credential_issue_sign(const CredentialIdentifier cred,
 int credential_issue_check(const CredentialIdentifier cred, 
                            const Attributes attr, 
                            const ResponseAPDUs response,
-                           IssuanceState *state);
+                           struct IssuanceState *state);
 
 /**
  * Verify attributes from a credential (step 1, initialisation).
@@ -92,7 +85,7 @@ int credential_issue_check(const CredentialIdentifier cred,
  */
 int credential_verify_init(const CredentialIdentifier cred, Attributes *attr,
                            CommandAPDUs *command, 
-                           VerificationState *state);
+                           struct VerificationState *state);
 
 /**
  * Verify attributes from a credential (step 2, check the responses, that is,
@@ -111,6 +104,6 @@ int credential_verify_init(const CredentialIdentifier cred, Attributes *attr,
  */
 int credential_verify_check(const CredentialIdentifier cred, Attributes *attr,
                             const ResponseAPDUs response, 
-                            VerificationState *state);
+                            struct VerificationState *state);
 
 #endif // CREDENTIAL_TERMINAL_H

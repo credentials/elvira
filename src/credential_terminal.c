@@ -2,23 +2,38 @@
 
 #include "credential_crypto.h"
 
+// Internal state object that stores information needed for future processing.
+typedef struct {
+  unsigned char *nonce;
+  unsigned long length;
+  // TODO: add crypto internal state.
+} State;
+
+// For now the state objects contain the same data.
+typedef State IssuanceState;
+typedef State VerificationState;
+
+/******************************************************************************
+ * ISSUANCE                                                                   *
+ ******************************************************************************/
+
 int credential_issue_init(const CredentialIdentifier cred, 
                           const Attributes attr,
                           CommandAPDUs *command, 
-                          IssuanceState *state) {
+                          struct IssuanceState *state) {
   int status;
-  IssuerState session;
+  struct IssuerState *session;
   Nonce n_1;
 
   // Prepare the issuer.
-  status = prepare_issuer(&session, cred, attr);
+  status = prepare_issuer(session, cred, attr);
   if (status != SUCCESS) {
     // TODO: Error handling.
     return status;
   }
 
   // Perform Idemix issuance protocol (init).
-  status = issue_challenge(&session, &n_1);
+  status = issue_challenge(session, &n_1);
   if (status != SUCCESS) {
     // TODO: Error handling.
     return status;
@@ -46,9 +61,9 @@ int credential_issue_init(const CredentialIdentifier cred,
 int credential_issue_sign(const CredentialIdentifier cred, 
                           const Attributes attr, 
                           const ResponseAPDUs response, CommandAPDUs *command, 
-                          IssuanceState *state) {
+                          struct IssuanceState *state) {
   int status;
-  IssuerState session;
+  struct IssuerState *session;
   Number U;
   ProofU P_U;
   Nonce n_2;
@@ -72,7 +87,7 @@ int credential_issue_sign(const CredentialIdentifier cred,
   }
   
   // Perform Idemix issuance protocol (sign).
-  status = issue_sign(&session, U, P_U, &S, &P_S);
+  status = issue_sign(session, U, P_U, &S, &P_S);
   if (status != SUCCESS) {
     // TODO: Error handling.
     return status;
@@ -93,7 +108,7 @@ int credential_issue_sign(const CredentialIdentifier cred,
 int credential_issue_check(const CredentialIdentifier cred, 
                            const Attributes attr, 
                            const ResponseAPDUs response,
-                           IssuanceState *state) {
+                           struct IssuanceState *state) {
   int status;
   
   // TODO: Restore state.
@@ -108,23 +123,26 @@ int credential_issue_check(const CredentialIdentifier cred,
   return SUCCESS;
 }
 
+/******************************************************************************
+ * VERIFICATION                                                               *
+ ******************************************************************************/
 
 int credential_verify_init(const CredentialIdentifier cred, Attributes *attr,
                            CommandAPDUs *command, 
-                           VerificationState *state) {
+                           struct VerificationState *state) {
   int status;
-  VerifierState session;
+  struct VerifierState *session;
   Nonce n_1;
   
   // Prepare the verifier.
-  status = prepare_verifier(&session, cred, *attr);
+  status = prepare_verifier(session, cred, *attr);
   if (status != SUCCESS) {
     // TODO: Error handling.
     return status;
   }
 
   // Perform Idemix verification protocol (init).
-  status = verify_challenge(&session, &n_1);
+  status = verify_challenge(session, &n_1);
   if (status != SUCCESS) {
     // TODO: Error handling.
     return status;
@@ -151,10 +169,10 @@ int credential_verify_init(const CredentialIdentifier cred, Attributes *attr,
 
 int credential_verify_check(const CredentialIdentifier cred, Attributes *attr,
                             const ResponseAPDUs response, 
-                            VerificationState *state) {
+                            struct VerificationState *state) {
 
   int status;
-  VerifierState session;
+  struct VerifierState *session;
   ProofD P_D;
   
   // TODO: Restore state.
@@ -174,7 +192,7 @@ int credential_verify_check(const CredentialIdentifier cred, Attributes *attr,
   }
 
   // Perform Idemix verification protocol (verify).
-  status = verify_proof(&session, P_D, attr);
+  status = verify_proof(session, P_D, attr);
   if (status != SUCCESS) {
     // TODO: Error handling.
     return status;

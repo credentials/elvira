@@ -6,11 +6,11 @@ int credential_issue(const CredentialIdentifier cred, const Attributes attr) {
   int status;
   CommandAPDUs command;
   ResponseAPDUs response;
-  IssuanceState state;
+  struct IssuanceState *state;
   
   // TODO: Verify input values and retrieve credential information.
   
-  status = credential_issue_init(cred, attr, &command, &state);
+  status = credential_issue_init(cred, attr, &command, state);
   if (!status) {
     // TODO: Error handling and cleanup.
     return status;
@@ -22,7 +22,7 @@ int credential_issue(const CredentialIdentifier cred, const Attributes attr) {
     return FAILURE;
   }
   
-  status = credential_issue_sign(cred, attr, response, &command, &state);
+  status = credential_issue_sign(cred, attr, response, &command, state);
   if (!status) {
     // TODO: Error handling and cleanup.
     return status;
@@ -34,7 +34,7 @@ int credential_issue(const CredentialIdentifier cred, const Attributes attr) {
     return FAILURE;
   }
   
-  status = credential_issue_check(cred, attr, response, &state);
+  status = credential_issue_check(cred, attr, response, state);
   if (!status) {
     // TODO: Error handling and cleanup.
     return status;
@@ -47,11 +47,11 @@ int credential_verify(const CredentialIdentifier cred, Attributes *attr) {
   int status;
   CommandAPDUs command;
   ResponseAPDUs response;
-  VerificationState state;
+  struct VerificationState *state;
   
   // TODO: Verify input values and retrieve credential information.
   
-  status = credential_verify_init(cred, attr, &command, &state);
+  status = credential_verify_init(cred, attr, &command, state);
   if (!status) {
     // TODO: Error handling and cleanup.
     return status;
@@ -63,7 +63,7 @@ int credential_verify(const CredentialIdentifier cred, Attributes *attr) {
     return FAILURE;
   }
   
-  status = credential_verify_check(cred, attr, response, &state);
+  status = credential_verify_check(cred, attr, response, state);
   if (!status) {
     // TODO: Error handling and cleanup.
     return status;
