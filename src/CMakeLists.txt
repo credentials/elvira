@@ -14,6 +14,9 @@ set(SOURCES_CRYPTO
 	credential_crypto.c
 )
 
+include(DetectArch)
+detect_arch()
+
 # dependencies
 set(PKG_DEPS gmp ${PKG_DEPS})
 
