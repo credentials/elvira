@@ -51,7 +51,7 @@ int doIssuance(const CredentialIdentifier *id, const Attributes *attr,
     return status;
   }
 
-  status = issue_commit(rSession, n_1, &U, &P_U, &n_2);
+  status = issue_commit(rSession, &n_1, &U, &P_U, &n_2);
   if (status != SUCCESS) {
     // Error reporting & handling.
     return status;

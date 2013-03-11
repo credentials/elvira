@@ -83,11 +83,15 @@ int issue_challenge(struct IssuerState *session, Nonce *n_1) {
   // Nonce goes to *n_1 and to session->n_1
 }
 
-int issue_commit(struct RecipientState *session, const Nonce n_1, Number *U,
+int issue_commit(struct RecipientState *session, const Nonce *n_1, Number *U,
                  ProofU *P_U, Nonce *n_2) {
+  int i;
   // TODO: Implement according to specification: COMMIT().
-  // TODO: Generate a fresh nonce: n_2.
-  // Nonce goes to session->n_2 and to *n_2
+  
+  // Generate a fresh nonce: n_2.
+  randombytes(n_2->v, NONCE_BYTES);
+  for(i=0;i<NONCE_BYTES;i++)
+    session->n_2.v[i] = n_2->v[i];
 }
 
 int issue_sign(struct IssuerState *session, const Number U, const ProofU P_U,

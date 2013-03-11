@@ -88,7 +88,7 @@ int issue_challenge(struct IssuerState *session, Nonce *n_1);
  *
  * The receipient executes this command to generate a commitment.
  */
-int issue_commit(struct RecipientState *session, const Nonce n_1, Number *U,
+int issue_commit(struct RecipientState *session, const Nonce *n_1, Number *U,
                  ProofU *P_U, Nonce *n_2);
 
 /**
