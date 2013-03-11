@@ -1,6 +1,8 @@
 #include "credential_crypto.h"
+#include "credential_crypto_types.h"
+#include "randombytes.h"
 
-typedef struct {
+struct IssuerState {
   // Generic values.
   CLPublicKey issuerKey;
   CLMessages attributes;
@@ -8,9 +10,9 @@ typedef struct {
 
   // Protocol values.
   Nonce n_1;
-} IssuerState;
+};
 
-typedef struct {
+struct RecipientState {
   // Generic values.
   CLPublicKey issuerKey;
   CLMessages a;
@@ -19,11 +21,11 @@ typedef struct {
   Attributes attr;
 
   // Protocol values.
-  unsigned char vPrime[SIZE_VPRIME];
+  unsigned char vPrime[VPRIME_BYTES];
   Nonce n_2;
-} RecipientState;
+};
 
-typedef struct {
+struct VerifierState {
   // Generic values.
   CLPublicKey issuerKey;
   Attributes attr;
@@ -31,16 +33,16 @@ typedef struct {
 
   // Protocol values.
   Nonce n_1;
-} VerifierState;
+};
 
-typedef struct {
+struct ProverState {
   // Generic values.
   CLPublicKey issuerKey;
   CLMessage attributes;
   CLSignature signature;
   CLMessage masterSecret;
   Selection D;
-} ProverState;
+};
 
 /******************************************************************************
  * PREPARATION                                                                *
@@ -102,11 +104,15 @@ int issue_construct(struct RecipientState *session, const CLSignature S,
  * VERIFICATION                                                               *
  ******************************************************************************/
 
-int verify_challenge(struct VerifierState *session, Nonce *n_1) {
-  // TODO: Generate a fresh nonce: n_1.
+int verify_challenge(struct VerifierState *session, Nonce *n_1) 
+{
+  int i;
+  randombytes(n_1->v, NONCE_BYTES);
+  for(i=0;i<NONCE_BYTES;i++)
+    session->n_1.v[i] = n_1->v[i];
 }
 
-int generate_proof(struct ProverState *session, const Nonce n_1, ProofD *P_D) {
+int generate_proof(struct ProverState *session, const Nonce *n_1, ProofD *P_D) {
   // TODO: Implement according to specification: PROVE().
 }
 

@@ -121,7 +121,7 @@ int verify_challenge(struct VerifierState *session, Nonce *n_1);
  *
  * The prover executes this command to generate a proof-of-knowledge.
  */
-int generate_proof(struct ProverState *session, const Nonce n_1, ProofD *P_D);
+int generate_proof(struct ProverState *session, const Nonce *n_1, ProofD *P_D);
 
 /**
  * Idemix credential verification (round 2)

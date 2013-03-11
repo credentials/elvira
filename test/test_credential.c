@@ -97,7 +97,7 @@ int doVerification(const Credential *cred, Attributes *attr) {
     return status;
   }
 
-  status = generate_proof(pSession, n_1, &P_D);
+  status = generate_proof(pSession, &n_1, &P_D);
   if (status != SUCCESS) {
     // Error reporting & handling.
     return status;

@@ -12,6 +12,7 @@ set(SOURCES
 )
 set(SOURCES_CRYPTO
 	credential_crypto.c
+  randombytes.c
   # whatever_is_implemented_for_crypto.c
 )
 

@@ -7,24 +7,32 @@
 #ifndef CREDENTIAL_CRYPTO_TYPES_H
 #define CREDENTIAL_CRYPTO_TYPES_H
 
-#define SIZE_N      128 // 1024 bits
-#define SIZE_M       32 //  256 bits
-#define SIZE_NONCE   10 //   80 bits
-#define SIZE_HASH    20 //  160 bits
-#define SIZE_V      201 // 1604 bits
-#define SIZE_E       63 //  504 bits
-#define SIZE_EPRIME  15 //  120 bits
+#define N_BYTES     128 // 1024 bits
+#define M_BYTES      32 //  256 bits
+#define NONCE_BYTES  10 //   80 bits
+#define HASH_BYTES   20 //  160 bits
+#define V_BYTES     201 // 1604 bits
+#define E_BYTES      63 //  504 bits
+#define EPRIME_BYTES 15 //  120 bits
 
-#define SIZE_VPRIME    (SIZE_N + SIZE_NONCE) // 138 bytes
-#define SIZE_VPRIMEHAT (SIZE_N + 2*SIZE_NONCE + SIZE_HASH) // 168 bytes
-#define SIZE_MHAT      (SIZE_M + SIZE_NONCE + SIZE_HASH) // 62 bytes
-#define SIZE_SHAT      (SIZE_M + SIZE_NONCE + SIZE_HASH + 1) // 63 bytes
-#define SIZE_VHAT      (SIZE_V + SIZE_NONCE + SIZE_HASH) // 231 bytes
-#define SIZE_EHAT      (SIZE_EPRIME + SIZE_NONCE + SIZE_HASH) // 45 bytes
+#define VPRIME_BYTES    (N_BYTES + NONCE_BYTES) // 138 bytes
+#define VPRIMEHAT_BYTES (N_BYTES + 2*NONCE_BYTES + HASH_BYTES) // 168 bytes
+#define MHAT_BYTES      (M_BYTES + NONCE_BYTES + HASH_BYTES) // 62 bytes
+#define SHAT_BYTES      (M_BYTES + NONCE_BYTES + HASH_BYTES + 1) // 63 bytes
+#define VHAT_BYTES      (V_BYTES + NONCE_BYTES + HASH_BYTES) // 231 bytes
+#define EHAT_BYTES      (EPRIME_BYTES + NONCE_BYTES + HASH_BYTES) // 45 bytes
 
-typedef unsigned char Hash[SIZE_HASH];
-typedef unsigned char Nonce[SIZE_NONCE];
-typedef unsigned char Number[SIZE_N]; // big endian!
+typedef struct {
+  unsigned char v[HASH_BYTES];
+} Hash;
+
+typedef struct {
+  unsigned char v[NONCE_BYTES];
+} Nonce;
+
+typedef struct {
+  unsigned char v[N_BYTES];
+} Number;
 
 typedef struct {
   Number p;
@@ -39,7 +47,7 @@ typedef struct {
   unsigned long count;
 } CLPublicKey;
 
-typedef unsigned char CLMessage[SIZE_M];
+typedef unsigned char CLMessage[M_BYTES];
 typedef struct {
   CLMessage *value;
   unsigned long count;
@@ -47,8 +55,8 @@ typedef struct {
 
 typedef struct {
   Number A;
-  unsigned char e[SIZE_E];
-  unsigned char v[SIZE_V];
+  unsigned char e[E_BYTES];
+  unsigned char v[V_BYTES];
 } CLSignature;
 
 
@@ -60,21 +68,21 @@ typedef struct {
 
 typedef struct {
   Hash c;
-  unsigned char vPrimeHat[SIZE_VPRIMEHAT];
-  unsigned char sHat[SIZE_SHAT];
+  unsigned char vPrimeHat[VPRIMEHAT_BYTES];
+  unsigned char sHat[SHAT_BYTES];
 } ProofU;
 
 typedef struct {
   Hash c;
-  unsigned char eHat[SIZE_N];
+  unsigned char eHat[N_BYTES];
 } ProofS;
 
 typedef struct {
   Hash c;
   Number APrime;
-  unsigned char eHat[SIZE_EHAT];
-  unsigned char vHat[SIZE_VHAT];
-  unsigned char *aHat[SIZE_MHAT];
+  unsigned char eHat[EHAT_BYTES];
+  unsigned char vHat[VHAT_BYTES];
+  unsigned char *aHat[MHAT_BYTES];
   CLMessage *a;
 } ProofD;
 
