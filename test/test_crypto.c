@@ -1,5 +1,8 @@
 #include "credential_crypto.h"
 
+extern int initialise_test_state(struct IssuerState *iSession, struct RecipientState *rSession);
+extern int clean_test_state(struct IssuerState *iSession, struct RecipientState *rSession);
+
 int main(int argc, char *argv[]) {
   int status;
   CredentialIdentifier id;
@@ -33,9 +36,8 @@ int doIssuance(const CredentialIdentifier *id, const Attributes *attr,
   CLSignature S;
   ProofS P_S;
 
-  //XXX: TODO: set up iSession
-
-  //XXX: TODO: set up rSession
+  // Set up iSession and rSession
+  init_issuance_test_state(iSession, rSession);
 
   status = issue_challenge(iSession, &n_1);
   if (status != SUCCESS) {
@@ -61,6 +63,8 @@ int doIssuance(const CredentialIdentifier *id, const Attributes *attr,
     return status;
   }
 
+  free_issuance_test_state(iSession, rSession);
+  
   return SUCCESS;
 }
 

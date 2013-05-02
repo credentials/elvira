@@ -4,6 +4,7 @@ set(PKG_INCLUDE_DIRS ${CMAKE_SOURCE_DIR}/include)
 # sources
 set(SOURCES_CRYPTO
         test_crypto.c
+        test_vectors_crypto.c
 )
 
 # sources
