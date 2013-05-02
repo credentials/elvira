@@ -1,2 +1,2 @@
 elvira
-enhanced library for verifying, issuing, and revealing attributes
+enhanced library for verifying, issuing, & revealing attributes
