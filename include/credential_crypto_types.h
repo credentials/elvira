@@ -48,6 +48,7 @@ typedef struct {
 } CLPublicKey;
 
 typedef unsigned char CLMessage[M_BYTES];
+
 typedef struct {
   CLMessage *value;
   unsigned long count;

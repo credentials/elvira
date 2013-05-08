@@ -15,7 +15,7 @@ struct IssuerState {
 struct RecipientState {
   // Generic values.
   CLPublicKey issuerKey;
-  CLMessages a;
+  CLMessages attributes;
   CLMessage s; // Master secret
   CredentialIdentifier id;
   Attributes attr;
@@ -77,21 +77,66 @@ int prepare_prover(const Credential *cred,
  * ISSUANCE                                                                   *
  ******************************************************************************/
 
-int issue_challenge(struct IssuerState *session, Nonce *n_1) {
-  // TODO: Generate a fresh nonce: n_1.
-  // Use random nonces.
-  // Nonce goes to *n_1 and to session->n_1
+int issue_challenge(struct IssuerState *session, Nonce *n_1) 
+{
+  randombytes(n_1->v, NONCE_BYTES);
+  for(i=0;i<NONCE_BYTES;i++)
+    session->n_1.v[i] = n_1->v[i];
 }
 
 int issue_commit(struct RecipientState *session, const Nonce *n_1, Number *U,
                  ProofU *P_U, Nonce *n_2) {
-  int i;
-  // TODO: Implement according to specification: COMMIT().
+  unsigned long i,j;
+  Number Utilde;
+  const unsigned int vprimetildelen = N_BYTES+2*NONCE_BYTES+HASH_BYTES;
+  unsigned char vprimetilde[vprimetildelen];
+  unsigned char *buf;
+
+  buf = (unsigned char *)malloc((session->issuerKey.count+5)*sizeof(Number)+sizeof(Nonce));
+  if(!buf) return -1; //XXX Figure out error code.
+
+  // COMPUTE_COMMITMENT
+  randombytes(session->vPrime, VPRIME_BYTES);
+  number_doublexp(U,session->issuerKey.S,session->vPrime,VPRIME_BYTES,session->issuerKey.R[0],session->s.v,M_BYTES);
+  // PROVE_COMMITMENT
+  randombytes(P_U->sHat,SHAT_BYTES);
+  P_U->sHat[0] &= 1;
+  randombytes(vprimetilde,vprimetildelen);
+  number_doublexp(&Utilde,session->issuerKey.S,vprimetilde,vprimetildelen,session->issuerkey.R[0],sHat,SHAT_BYTES);
+
+  for(j=0;j<N_BYTES;j++)
+    buf[j] = session->issuerKey.n.v[j];
+  for(j=0;j<N_BYTES;j++)
+    buf[j+N_BYTES] = session->issuerKey.Z.v[j];
+  for(j=0;j<N_BYTES;j++)
+    buf[j+2*N_BYTES] = session->issuerKey.S.v[j];
+  for(i=0;i<session->issuerKey.count;i++)
+    for(j=0;j<N_BYTES;j++)
+      buf[j+(i+3)*N_BYTES] = session->issuerKey.R[i].v[j];
+  for(j=0;j<N_BYTES;j++)
+    buf[j+(i+3)*N_BYTES] = U->v[j];
+  for(j=0;j<N_BYTES;j++)
+    buf[j+(i+4)*N_BYTES] = Utilde.v[j];
+  for(j=0;j<NONCE_BYTES;j++)
+    buf[j+(i+5)*N_BYTES] = n1->v[j];
   
+  hash(P_U->c.v,buf,(session->issuerKey.count+5)*sizeof(Number)+sizeof(Nonce));
+  bigint_mul(P_U->sHat, session->s, M_BYTES, P_U->c.v, HASH_BYTES);
+  
+
+  
+  // TODO
+
+  // context = issuerKey || attributes
+
   // Generate a fresh nonce: n_2.
   randombytes(n_2->v, NONCE_BYTES);
   for(i=0;i<NONCE_BYTES;i++)
     session->n_2.v[i] = n_2->v[i];
+
+  free(buf);
+
+  return 0;
 }
 
 int issue_sign(struct IssuerState *session, const Number U, const ProofU P_U,
