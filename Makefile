@@ -11,8 +11,11 @@ CHECKSUM = sha512sum
 ARCHIVE_FILE = $(PROJECT).$(ARCHIVE_EXT)
 ARCHIVE_CHECKSUM_FILE = $(ARCHIVE_FILE).$(CHECKSUM)
 
-# Build the library
-all: $(BUILD_DIR)/Makefile
+# Build the project
+all: elvira
+
+# Build the project
+elvira: $(BUILD_DIR)/Makefile
 	$(MAKE) -C $(BUILD_DIR)
 
 # Clean up the build dir (i.e. remove it)
@@ -29,11 +32,19 @@ archive:
 	$(CHECKSUM) $(ARCHIVE_FILE) > $(ARCHIVE_CHECKSUM_FILE)
 
 # Create the build directory
-build:
+$(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
 
 # Generate the Makefile using CMake
 $(BUILD_DIR)/Makefile: $(BUILD_DIR)
 	(cd $(BUILD_DIR) && cmake ..)	
 
-.PHONY : all clean
+# Provide some help in using this Makefile
+help:
+	@echo "The following are some of the valid targets for this Makefile:"
+	@echo "... elvira (to build the project)"
+	@echo "... clean (to clean up the build directory)"
+	@echo "... distclean (to clean up the working directory)"
+	@echo "... archive (to generate a source archive)"
+
+.PHONY : all archive clean distclean elvira help

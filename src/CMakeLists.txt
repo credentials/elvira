@@ -20,7 +20,7 @@ include(DetectArch)
 detect_arch()
 
 # dependencies
-set(PKG_DEPS gmp ${PKG_DEPS})
+set(PKG_DEPS ${PKG_DEPS})
 
 # verifiy dependencies
 #find_package(PkgConfig)
@@ -41,7 +41,6 @@ set(PKG_DEPS gmp ${PKG_DEPS})
 # compiler configuration
 set(CFLAGS ${DEPS_CFLAGS} ${DEPS_CFLAGS_OTHER})
 set(LIBS ${DEPS_LIBRARIES})
-set(LIBS ${LIBS} -lgmp)
 set(LIB_PATHS ${DEPS_LIBRARY_DIRS})
 set(INC_PATHS ${DEPS_INCLUDE_DIRS} ${PKG_INCLUDE_DIRS})
 

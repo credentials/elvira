@@ -7,8 +7,8 @@ EAPI=4
 inherit cmake-utils
 
 DESCRIPTION="Fast and portable C library which provides both high-level and low-level (cryptographic) credential operations"
-HOMEPAGE="https://github.com/credentials/clib"
-SRC_URI="https://github.com/credentials/clib/archive/clib-${PN}.tar.gz ->
+HOMEPAGE="https://github.com/credentials/elvira"
+SRC_URI="https://github.com/credentials/elvira/archive/elvira-${PV}.tar.gz ->
 ${P}.tar.gz"
 
 LICENSE="CC0-1.0"
@@ -16,8 +16,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~arm ~mips ~x86"
 IUSE=""
 
-RDEPEND="
-	dev-libs/gmp"
+RDEPEND=""
 DEPEND="${RDEPEND}"
 
 pkg_setup() {

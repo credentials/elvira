@@ -2,9 +2,9 @@ cmake_minimum_required(VERSION 2.8)
 
 list (APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
-project(clib)
+project(elvira)
 
-set(PKG_NAME "credentials")
+set(PKG_NAME "elvira")
 set(PKG_DESCRIPTION "Fast and portable C library which provides both high-level and low-level (cryptographic) credential operations")
 set(PKG_AUTHOR "Peter Schwabe <peter@cryptojedi.org>, Pim Vullers <pim@cs.ru.nl>")
 set(PKG_VERSION_MAJOR "0")
@@ -28,12 +28,12 @@ set(CPACK_SOURCE_GENERATOR "TGZ;TBZ2;ZIP")
 set(CPACK_SOURCE_PACKAGE_FILE_NAME "${PKG_NAME}-${PKG_VERSION}")
 set(CPACK_SOURCE_IGNORE_FILES "/build/;~$;${CPACK_SOURCE_IGNORE_FILES}")
 
-set(CPACK_DEBIAN_PACKAGE_DEPENDS "libc6, libgmp10")
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "libc6")
 set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE ${ARCH})
 set(CPACK_DEBIAN_PACKAGE_SECTION  "libs")
 
 set(CPACK_RPM_PACKAGE_LICENSE "CC0-1.0")
-set(CPACK_RPM_PACKAGE_REQUIRES "gmp")
+set(CPACK_RPM_PACKAGE_REQUIRES "")
 include(CPack)
 
 add_custom_target(dist COMMAND ${CMAKE_MAKE_PROGRAM} package_source)
