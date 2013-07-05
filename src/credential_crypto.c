@@ -1,6 +1,10 @@
+#include <stdlib.h>
+
 #include "credential_crypto.h"
 #include "credential_crypto_types.h"
 #include "randombytes.h"
+//#include "rsamod.h"
+//#include "bigint.h"
 
 struct IssuerState {
   // Generic values.
@@ -79,13 +83,16 @@ int prepare_prover(const Credential *cred,
 
 int issue_challenge(struct IssuerState *session, Nonce *n_1) 
 {
+  int i;
   randombytes(n_1->v, NONCE_BYTES);
   for(i=0;i<NONCE_BYTES;i++)
     session->n_1.v[i] = n_1->v[i];
 }
 
 int issue_commit(struct RecipientState *session, const Nonce *n_1, Number *U,
-                 ProofU *P_U, Nonce *n_2) {
+                 ProofU *P_U, Nonce *n_2) 
+{
+  /*
   unsigned long i,j;
   Number Utilde;
   const unsigned int vprimetildelen = N_BYTES+2*NONCE_BYTES+HASH_BYTES;
@@ -97,12 +104,12 @@ int issue_commit(struct RecipientState *session, const Nonce *n_1, Number *U,
 
   // COMPUTE_COMMITMENT
   randombytes(session->vPrime, VPRIME_BYTES);
-  number_doublexp(U,session->issuerKey.S,session->vPrime,VPRIME_BYTES,session->issuerKey.R[0],session->s.v,M_BYTES);
+  number_doublexp(U,session->issuerKey.S,session->vPrime,VPRIME_BYTES,session->issuerKey.R[0],session->s,M_BYTES);
   // PROVE_COMMITMENT
   randombytes(P_U->sHat,SHAT_BYTES);
   P_U->sHat[0] &= 1;
   randombytes(vprimetilde,vprimetildelen);
-  number_doublexp(&Utilde,session->issuerKey.S,vprimetilde,vprimetildelen,session->issuerkey.R[0],sHat,SHAT_BYTES);
+  number_doublexp(&Utilde,session->issuerKey.S,vprimetilde,vprimetildelen,session->issuerKey.R[0],sHat,SHAT_BYTES);
 
   for(j=0;j<N_BYTES;j++)
     buf[j] = session->issuerKey.n.v[j];
@@ -136,6 +143,7 @@ int issue_commit(struct RecipientState *session, const Nonce *n_1, Number *U,
 
   free(buf);
 
+  */
   return 0;
 }
 

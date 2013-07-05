@@ -7,6 +7,8 @@
 #ifndef CREDENTIAL_CRYPTO_TYPES_H
 #define CREDENTIAL_CRYPTO_TYPES_H
 
+#include "credential_types.h"
+
 #define N_BYTES     128 // 1024 bits
 #define M_BYTES      32 //  256 bits
 #define NONCE_BYTES  10 //   80 bits

@@ -1,29 +1,48 @@
+#include <stdio.h>
+
 #include "bigint.h"
 
+/* rlen has to be at least max(xlen,ylen), carry is returned */
+unsigned char bigint_add(unsigned char *r,
+    const unsigned char *x, unsigned long xlen,
+    const unsigned char *y, unsigned long ylen)
+{
+  //XXX: TODO
+  //
+}
 
-bigint_add(bigint *r, const bigint *x, const bigint *y)
+/* rlen has to be at least max(xlen,ylen), borrow is returned */
+unsigned char bigint_sub(unsigned char *r,
+    const unsigned char *x, unsigned long xlen,
+    const unsigned char *y, unsigned long ylen
+    )
 {
   //XXX: TODO
 }
 
-bigint_sub(bigint *r, const bigint *x, const bigint *y)
+/* rlen has to be at least xlen+ylen */
+void bigint_mul(unsigned char *r,
+    const unsigned char *x, unsigned long xlen,
+    const unsigned char *y, unsigned long ylen
+    )
 {
   //XXX: TODO
 }
 
-bigint_mul(bigint *r, const bigint *x, const bigint *y)
+/* rlen has to be at least mlen */
+void bigint_invmod(unsigned char *r,
+    const unsigned char *x, unsigned long xlen,
+    const unsigned char *m, unsigned long mlen
+    )
 {
   //XXX: TODO
 }
 
-bigint_invmod(bigint *r, const bigint *x, const bigint *m)
+void bigint_print(const unsigned char *x, unsigned long xlen)
 {
-  //XXX: TODO
+  long i;
+  printf("(");
+  for(i=xlen-1;i>0;i--)
+    printf("%u*2^(%u) + ",x[i],xlen-1-i);
+  printf("%u*2^(%u))",x[0],xlen-1);
 }
-
-// Computes x^n mod m 
-bigint_powmod(bigint *r, const bigint *x, const bigint *n, const bigint *m)
-{
-  //XXX: TODO
-}
-
